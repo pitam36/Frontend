@@ -1,0 +1,125 @@
+var min=0;
+        var sec=0;
+        var hr=0;
+        var msec=0
+        var secs,mins,hrs,msecs;
+        var start;
+        var esec,emin,ehr;    
+        var bstart=document.getElementById("start");
+        var bstop=document.getElementById("stop");
+        var breset=document.getElementById("reset");
+        var bresume=document.getElementById("resume");
+        var c=document.getElementById("count");      
+        document.getElementById("count").innerHTML="0"+hr+":"+"0"+min+":"+"0"+sec+":"+"0"+msec;
+        function stop()
+        {
+            bstop.style.display="none";
+            bresume.style.display="inline";
+            breset.style.display="inline";
+        }
+        function cal()
+        {
+            time=document.getElementById("time").value;
+            ehr=Math.floor(time/3600)>=10?Math.floor(time/3600):"0"+Math.floor(time/3600);
+            emin=Math.floor(time/60)>=10?Math.floor(time/60):"0"+Math.floor(time/60);
+            esec=Math.floor(time%60)>=10?Math.floor(time%60):"0"+Math.floor(time%60);
+            if(emin>60)
+            {
+                emin=(emin%60);
+                emin=emin>=10?emin:"0"+emin;
+            }
+            if(ehr>60)
+            {
+                ehr=(ehr%60);
+                ehr=ehr>=10?ehr:"0"+ehr;
+            }
+            document.getElementById("time").value="NULL";
+            msec=0;
+            document.getElementById("count").innerHTML=ehr+":"+emin+":"+esec+":"+"0"+msec;
+            hr=Math.floor(time/3600);
+            hr=hr>=60?hr%60:hr;
+            min=Math.floor(time/60);
+            min=min>=60?min%60:min;
+            sec=Math.floor(time%60);
+            msec=1;
+        }
+        function myTimer()
+        {
+            if(hr==0 && min==0 && sec==0)
+                alert("enter time in seconds");
+            else
+            start=setInterval(Tstart,10);
+        }
+        function Tstart()
+        {
+            bstop.style.display="inline";
+            bresume.style.display="none";
+            bstart.style.display="none";
+            breset.style.display="none";
+            msec=msec-1;
+            document.getElementById("time").disabled=true;
+            if(hr==0 && min==0 && sec==0 && msec==0)
+            {
+                document.getElementById("count").innerHTML="00:00:00";
+                clearInterval(start);
+                breset.style.display="inline";
+                bstop.style.display="none";
+            }
+            if(msec<=0)
+            {
+                msec=99;
+                sec=sec-1
+                if(sec<0)
+                {
+                    msec=0;
+                    sec=0;
+                }
+            }
+            if(sec<=0)
+            { 
+                sec=59;
+                min=min-1;
+                if(min<0)
+                {
+                    min=0;
+                    sec=0;
+                }
+            }
+            if(min<=0)
+            {
+                min=59;
+                hr=hr-1;
+                if(hr<0)
+                {
+                    hr=0;
+                    min=0;
+                }
+            }
+            if(hr==0 && min==0 && sec<=50)
+            {
+                c.style.color="yellow";
+            }
+            if(hr==0 && min==0 && sec<=10)
+            {
+                c.style.color="red";
+            }
+            secs=sec>=10?sec:"0"+sec;
+            mins=min>=10?min:"0"+min;
+            hrs=hr>=10?hr:"0"+hr;
+            msecs=msec>=10?msec:"0"+msec;
+            document.getElementById("count").innerHTML=hrs+":"+mins+":"+secs+":"+msecs;
+        }
+        function reset()
+        {
+            sec=0;
+            min=0;
+            hr=0;
+            msec=0;
+            document.getElementById("count").innerHTML=hr+"0"+":"+min+"0"+":"+sec+"0"+":"+msec+"0";
+            bstart.style.display="inline";
+            breset.style.display="none";
+            bstop.style.display="none";
+            bresume.style.display="none";
+            c.style.color="green";
+            document.getElementById("time").disabled=false;
+        }

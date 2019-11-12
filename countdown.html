@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>Countdown Timer</title>
+    <link rel="stylesheet" type="text/css" href="count.css">
+</head>
+<body>
+    <div class="box">
+        <input type="number" class="textbox" id="time" onchange="cal()" required/>
+        <p id="count"></p>
+        <button id="start" class="button button1" onclick="myTimer()">start</button>
+        <button id="stop" class="button button2" onclick="clearInterval(start); stop();">stop</button>
+        <button id="reset" class="button button1" onclick="reset()">reset</button>
+        <button id="resume" class="button button1" onclick="myTimer()">resume</button>
+    </div>
+    <script src="count.js"></script>
+</body>
+</html>
